@@ -1,0 +1,91 @@
+{% extends 'Basic.html' %}
+{% load static %}
+{% block title %} Contact Page{% endblock title %}
+
+{% block css %}
+    .book{
+        margin-top:8%;
+    }
+    .book .row{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:2rem;
+    }
+    .book .row form{
+        flex:1 1 45rem;
+        background:#fff;
+        border:var(--border);
+        box-shadow:var(--border);
+        text-align: center;
+        padding:2rem 10rem;
+        border-radius: .5rem;
+    }
+    .book .row form h3{
+        color:var(--black);
+        padding-bottom:1rem;
+        font-size:3rem;
+    }
+    .book .row form .box{
+        width:100%;
+        margin: .7rem 0;
+        border-radius:.5rem;
+        border:var(--border);
+        font-size:1.6rem;
+        color:var(--black);
+        text-transform:none;
+        padding:1rem;
+    }
+    .book .row form .btn:hover{
+        padding:1rem 4rem;
+    }
+    .btn{
+        display:initial;
+        font-size:2.5rem;
+        background:green;
+        border-radius:.5rem;
+        color:white;
+        padding:1rem 1.5rem;
+        cursor:pointer;
+    }
+    .btn:hover{
+        background:blue;
+    }
+    .alert{
+        padding:10px;
+        background:blue;
+        color:white;
+        border-radius:4px;
+    }
+    .alert .msg{
+        padding: 0 20px;
+        font-size:18px;
+    }
+{% endblock css %}
+
+{% block body %}
+    <section class="book" id="book">
+        {% for message in messages %}
+        <div class="alert">
+            <span class="msg msg">{{message}}</span>
+        </div>
+        {% endfor %}
+
+        <div class="row">
+
+
+        <form action="" method="post">{% csrf_token %}
+            <h3>User Registration Page</h3>
+            <input type="text" placeholder="Enter Your User Name Please" class="box" name="Username">
+            <input type="text" placeholder="Enter Your First Name Please" class="box" id="name" name="firstname">
+            <input type="text" placeholder="Enter Your last Name Please" class="box" id="number" name="lstName">
+            <input type="email" placeholder="Enter Your Email Please" class="box" id="email" name="email">
+            <input type="password" placeholder="Enter Your Password Please" class="box" id="query" name="password">
+            <input type="password" placeholder="Confirm Your Password Please" class="box" id="" name="Cpassword">
+            <input type="submit" class="btn" value="Register now">
+        </form>
+    </div>
+    </section>
+{% endblock body %}
+
+{% block js %}{% endblock js %}

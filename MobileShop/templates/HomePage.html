@@ -1,0 +1,169 @@
+{% extends 'Basic.html' %}
+{% load static %}
+  {% block title %} HomePage {% endblock title %}
+{% block css %}
+
+	.container {
+			margin-top: 8%;
+			margin-left: 5%;
+			margin-right: 5%;
+		}
+		.slider-wrapper .content-section{
+			font-size: 0;
+			overflow-x: auto;
+			scroll-behavior: none;
+			display: grid;
+			margin: 40px;
+			align-items: center;
+			text-align: center;
+			grid-template-columns: repeat(10, 1fr);
+		}
+	}
+		.slider-wrapper .content-section{
+			font-size: 0;
+			overflow-x: auto;
+			scroll-behavior: none;
+			display: grid;
+			margin: 40px;
+			align-items: center;
+			text-align: center;
+			grid-template-columns: repeat(10, 1fr);
+		}
+		.slider-wrapper .content-section::-webkit-scrollbar{
+			display: none;
+		}
+		.slider-wrapper{
+			position: relative;
+		}
+		.slider-scrollbar{
+			height: 10px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+		}
+		.slide-button{
+			height: 30px;
+			width: 30px;
+			color: #fff;
+			background-color: #000;
+			font-size: 1.5rem;
+			cursor: pointer;
+			border-radius: 50%;
+			border:none;
+			outline: none;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.slide-button:hover{
+			background-color: blue;
+		}
+		.slide-button#prev-slider{
+			left: -20px;
+			display: none;
+		}
+		.slide-button#next-slider{
+			right: -20px;
+		}
+		.content-section .card{
+			width: 350px;
+			height: auto;
+			margin: 20px 20px;
+			box-shadow: -1px 0 10px #000000;
+		}
+		.slider-wrapper .content-section .card img{
+			width: 60%;
+			height:200px;
+		}
+		.slider-wrapper .content-section .card h2{
+			margin: 15px 0px;
+			font-size: 28px;
+			color: green;
+			font-family: sans-serif;
+		}
+		.slider-wrapper .content-section .card p{
+			font-size: 16px;
+			line-height: 1.5;
+			padding:0px 10px;
+			margin-bottom: 20px;
+			font-family: sans-serif;
+		}
+		.slider-wrapper .content-section .card div{
+			margin-bottom: 20px;
+		}
+		.slider-wrapper .content-section .card div button{
+			padding: 1rem 2rem;
+			background-color: green;
+			color: white;
+			border-radius: 10%;
+			border-color: blue;
+			margin: 2px;
+		}
+		.slider-wrapper .content-section .card div button:hover{
+			border-color: green;
+			background-color: blue;
+		}
+		.plusBtn, .minusBtn{
+			display:none;
+		}
+{% endblock css %}
+    {% block body %}
+
+		<div class="container">
+		<div class="slider-wrapper">
+			<button id="prev-slider" class="slide-button fa fa-chevron-left" aria-hidden="true"></button>
+			<div class="content-section">
+				{% for i in products %}
+			<div class="card">
+				<img src="/media/{{i.Product_Image}}" id="img">
+				<h2 id="name">{{i.Product_Name|slice:"20"}}</h2>
+				<h2 id="price">{{i.Product_Price|slice:"11"}}$</h2>
+				<p id="desc">{{i.Product_Desc|slice:"50"}}...</p>
+				<div>
+					<a href="/ViewPage/{{i.id}}"><button>QuickView</button></a>
+				</div>
+			</div>
+
+				{% empty %}
+				No Data Found
+				{% endfor %}
+
+		</div>
+		<button id="next-slider" class="slide-button fa fa-chevron-right" aria-hidden="true"></button>
+	</div>
+		</div>
+
+    {% endblock body %}
+
+{% block js %}
+	const initSlider = ()=>{
+		const sectionContainer = document.querySelector(".slider-wrapper .content-section");
+		const slideButton = document.querySelectorAll(".slider-wrapper .slide-button");
+		const maxScrollLeft = sectionContainer.scrollWidth - sectionContainer.clientWidth;
+		slideButton.forEach(button =>{
+			button.addEventListener("click", ()=>{
+				const direction = button.id === "prev-slider" ? -1 : 1;
+				const scrollAmount = sectionContainer.clientWidth * direction;
+				sectionContainer.scrollBy({left: scrollAmount, behavior : "smooth"});
+			});
+		});
+		const handleSliderButton = ()=>{
+			slideButton[0].style.display = sectionContainer.scrollLeft <= 0 ? "none" : "block";
+			slideButton[1].style.display = sectionContainer.scrollLeft >= maxScrollLeft ? "none" : "block";
+		}
+		const updateScrollThumbPosition = () =>{
+			const scrollPosition = sectionContainer.scrollLeft;
+		}
+		sectionContainer.addEventListener("scroll", () =>{
+			handleSliderButton();
+			updateScrollThumbPosition();
+		})
+	}
+	window.addEventListener("load", initSlider);
+
+
+
+
+
+{% endblock js %}
+

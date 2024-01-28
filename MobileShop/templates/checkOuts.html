@@ -1,0 +1,123 @@
+{% extends 'Basic.html' %}
+{% load static %}
+  {% block title %} CheckOuts Page {% endblock title %}
+{% block css %}
+    .container{
+        margin-top:10%;
+        margin-left:20%;
+        margin-right:20%;
+    }
+    .groupItem{
+        display:flex;
+        justify-content:space-between;
+        border:.5px solid;
+        font-size:18px;
+        text-align: center;
+        margin:2%;
+    }
+    .badge{
+        background:blue;
+        color:white;
+        align-items: center;
+        padding:5px;
+        border-radius:50%;
+    }
+    form{
+        flex:1 1 45rem;
+        background:#fff;
+        border:var(--border);
+        box-shadow:var(--border);
+        text-align: center;
+        padding:2rem 10rem;
+        border-radius: .5rem;
+    }
+    form h3{
+        color:var(--black);
+        padding-bottom:1rem;
+        font-size:3rem;
+    }
+    form .box{
+        width:100%;
+        margin: .7rem 0;
+        border-radius:.5rem;
+        border:var(--border);
+        font-size:1.6rem;
+        color:var(--black);
+        text-transform:none;
+        padding:1rem;
+    }
+    form .btn:hover{
+        padding:1rem 4rem;
+    }
+    .btn{
+        display:initial;
+        font-size:2.5rem;
+        background:green;
+        border-radius:.5rem;
+        color:white;
+        padding:1rem 1.5rem;
+        cursor:pointer;
+    }
+    .btn:hover{
+        background:blue;
+    }
+    .alert{
+        padding:10px;
+        background:blue;
+        color:white;
+        border-radius:4px;
+    }
+    .alert .msg{
+        padding: 0 20px;
+        font-size:18px;
+    }
+
+
+
+{% endblock css %}
+
+{% block body %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert">
+            <span class="msg msg">{{message}} OrderId = {{product.id}}</span>
+        </div>
+        {% endfor %}
+
+        <h1>Step 1 - My Awesome Cart Express Checkout - Review Your Cart Items </h1>
+        <div id="ProName">
+            <ul class="group" id="items">
+                <li class="groupItem">
+                    <span>{{product.Product_Name}}</span>
+                        <span>${{product.Product_Price}}</span>
+                        <span class="badge" id="qty"></span>
+                    </li>
+            </ul>
+        </div>
+
+         <form action="" method="post">{% csrf_token %}
+            <h3>Step 2- Enter Your  Address and Other Details :</h3>
+             <input type="hidden" name="ItemJason" id="ItemJason">
+            <input type="text" placeholder="Enter Your Name Please" class="box" name="name">
+            <input type="number" placeholder="Enter Your Number Please" class="box" name="number">
+            <input type="email" placeholder="Enter Your Email Please" class="box" name="email">
+            <input type="text" placeholder="Enter Your Complete Address Please" class="box" name="Address">
+            <input type="submit" class="btn" value="Place Order">
+        </form>
+
+    </div>
+
+
+
+
+{% endblock body %}
+
+{% block js %}
+
+const NumberQTY = localStorage.getItem('Name');
+document.getElementById('qty').innerHTML = NumberQTY;
+
+
+<!--$('#ItemJason').val(JSON.stringify(group));-->
+
+{% endblock js %}

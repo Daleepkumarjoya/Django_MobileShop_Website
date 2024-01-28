@@ -1,0 +1,100 @@
+{% extends 'Basic.html' %}
+{% load static %}
+{% block title %} Login Page{% endblock title %}
+
+{% block css %}
+
+.container{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:white;
+}
+.wrapper{
+position:relative;
+max-width:470px;
+width:100%;
+border-radius:12px;
+padding:20px 30px 120px;
+background:#4070f4;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+overflow:hidden;
+}
+
+.signup header{
+font-size:30px;
+text-align:center;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+}
+.wrapper form{
+display:flex;
+flex-direction:column;
+gap:20px;
+margin-top:40px;
+}
+
+form input{
+height:60px;
+outline:none;
+border:none;
+padding:0 15px;
+font-size:16px;
+font-weight:400;
+color:#333;
+border-radius:8px;
+background:#fff;
+}
+
+form input[type="submit"]{
+padding:none;
+font-size:18px;
+font-weight:500;
+margin-top:15px;
+cursor:pointer;
+}
+form input[type="submit"]:hover{
+background:green;
+color:white;
+}
+.alert{
+        padding:10px;
+        background:blue;
+        color:white;
+        border-radius:4px;
+    }
+    .alert .msg{
+        padding: 0 20px;
+        font-size:18px;
+    }
+{% endblock css %}
+
+{% block body %}
+
+<h1> LogIn Section start here</h1>
+<div class="container">
+
+<section class="wrapper" id="LogSign">
+
+<div class="signup">
+  <header>LogIn</header>
+  <form action="#" method="post">{% csrf_token %}
+      <input type="text" placeholder="UserName" required name="logUserName"/>
+        <input type="password" placeholder="Password" required name="logPassword"/>
+   <input type="submit" value="LogIn" />
+  </form>
+    {% for message in messages %}
+        <div class="alert">
+            <span class="msg msg">{{message}}</span>
+        </div>
+        {% endfor %}
+</div>
+</section>
+
+</div>
+
+{% endblock body %}
+
+{% block js %}{% endblock js %}

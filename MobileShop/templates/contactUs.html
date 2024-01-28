@@ -1,0 +1,75 @@
+{% extends 'Basic.html' %}
+{% load static %}
+{% block title %} Contact Page{% endblock title %}
+
+{% block css %}
+    .book{
+        margin-top:8%;
+    }
+    .book .row{
+        display:flex;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:2rem;
+    }
+    .book .row form{
+        flex:1 1 45rem;
+        background:#fff;
+        border:var(--border);
+        box-shadow:var(--border);
+        text-align: center;
+        padding:2rem 10rem;
+        border-radius: .5rem;
+    }
+    .book .row form h3{
+        color:var(--black);
+        padding-bottom:1rem;
+        font-size:3rem;
+    }
+    .book .row form .box{
+        width:100%;
+        margin: .7rem 0;
+        border-radius:.5rem;
+        border:var(--border);
+        font-size:1.6rem;
+        color:var(--black);
+        text-transform:none;
+        padding:1rem;
+    }
+    .book .row form .btn:hover{
+        padding:1rem 4rem;
+    }
+    .btn{
+        display:initial;
+        font-size:2.5rem;
+        background:green;
+        border-radius:.5rem;
+        color:white;
+        padding:1rem 1.5rem;
+        cursor:pointer;
+    }
+    .btn:hover{
+        background:blue;
+    }
+{% endblock css %}
+
+{% block body %}
+    <section class="book" id="book">
+
+        <div class="row">
+            <div class="image">
+
+        </div>
+        <form action="" method="post">{% csrf_token %}
+            <h3>Contact Us For Any Query</h3>
+            <input type="text" placeholder="Enter Your Name Please" class="box" id="name" name="name">
+            <input type="number" placeholder="Enter Your Number Please" class="box" id="number" name="number">
+            <input type="email" placeholder="Enter Your Email Please" class="box" id="email" name="email">
+            <input type="text" placeholder="Enter Your Query Please" class="box" id="query" name="query">
+            <input type="submit" class="btn" value="Submit now">
+        </form>
+    </div>
+    </section>
+{% endblock body %}
+
+{% block js %}{% endblock js %}
